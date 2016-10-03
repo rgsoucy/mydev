@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Sales Strategy Client Rendering</title>
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+    <script type="text/javascript">
+        /*CSR Starter Script***************************************************  
+         * SP.SOD.executeFunc("clienttemplates.js", "SPClientTemplates", function () {
+         *    SPClientTemplates.TemplateManager.RegisterTemplateOverrides({
+         *       Templates: {
+         *         Footer: "hello world"
+         *            }
+         *           });
+         *          })
+         *******************************************************************/
+        /***********GET UNIQUE ARRAY VALUES******************************/
+        Array.prototype.sortUnique = function () {
+                this.sort();
+                var last_i;
+                for (var i = 0; i < this.length; i++) {
+                    if ((last_i = this.lastIndexOf(this[i])) !== i)
+                        this.splice(i + 1, last_i - i);
+                    return this;
+                }
+            }
+            /******************************************************************/
+        var myAngApp = angular.module('SharePointAngApp', []);
+        myAngApp.controller('ssClientController', function ($scope, $http) {
+            $http({
+                    method: 'GET',
+                    url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getByTitle('Sales Strategy')/items?$select=Title,Industry,Size,Spend",
+                    headers: {
+                        "Accept": "application/json;odata=verbose"
+                    }
+                }).success(function (data, status, headers, config) {
+                    $scope.clients = data.d.results;
+                })
+                .error(function (data, status, headers, config) {
+                    console.log("$http failed");
+                });
+            /*NOTE: function needs to be wrapped in the document ready closure to runn */
+            (function ($scope) {
+                console.log($scope.clients);
+                var industries = [];
+                $scope.clients.forEach(function (item) {
+                    var val = item.Industry;
+                    industries.push(val);
+                    industries.sortUnique();
+                    console.log(industries)
+                });
+            });
+
+        });
+    </script>
+
+</head>
+
+<body>
+
+    <!-- popover code
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h3>Popover Example</h3>
+  <a href="#" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover">Toggle popover</a>
+</div>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+</script>
+
+</body>
+</html>
+
+    
+      -->
+
+
+
+
+    <h1>SS Client List</h1>
+    <style type="text/css">
+        td {
+            padding: 10px;
+            text-align: left;
+            width: 10%;
+        }
+        
+        #tbl1 > tbody > tr:hover {
+            border: medium;
+            border-color: lime;
+        }
+        
+        .clientCell {
+            background-color: green;
+            border-width: 5px;
+            border-color: #ffffff;
+            border-collapse: collapse;
+        }
+    </style>
+
+    <div ng-app="SharePointAngApp" class="row">
+        <div ng-controller="ssClientController" class="span10">
+
+
+            <table class="table table-condensed table-hover" id="tbl1">
+
+            </table>
+            <hr />
+            <br />
+            <table class="table table-condensed table-hover" id="tbl1">
+
+
+
+                <!--extra commenting stuff ********************Rows pulls clients in specific industry horizontally ************************************************	-->
+
+                <tr>
+                    <td>B2B Tech</td>
+                    <td class="clientCell" ng-repeat="client in clients | filter:{Industry:'B2B TECH'}"><span ng-bind="client.Title"></span></td>
+                </tr>
+                <tr>
+                    <td>FINANCIAL SERVICES</td>
+                    <td class="clientCell" ng-repeat="client in clients | filter:{Industry:'FINANCIAL SERVICES'}"><span ng-bind="client.Title"></span></td>
+                </tr>
+                <tr>
+                    <td>EDUCATION</td>
+                    <td class="clientCell" ng-repeat="client in clients | filter:{Industry:'EDUCATION'}"><span ng-bind="client.Title"></span></td>
+                </tr>
+                <tr>
+                    <td>INSURANCE</td>
+                    <td class="clientCell" ng-repeat="client in clients | filter:{Industry:'INSURANCE'}"><span ng-bind="client.Title"></span></td>
+                </tr>
+                <tr>
+                    <td>GOVERNMENT</td>
+                    <td class="clientCell" ng-repeat="client in clients | filter:{Industry:'GOVERNMENT'}"><span ng-bind="client.Title"></span></td>
+                </tr>
+                <tr>
+                    <td>B2C TECH</td>
+                    <td class="clientCell" ng-repeat="client in clients | filter:{Industry:'B2C TECH'}"><span ng-bind="client.Title"></span></td>
+                </tr>
+
+                <tr>
+                    <td>CONSULTING</td>
+                    <td class="clientCell" ng-repeat="client in clients | filter:{Industry:'CONSULTING'}"><span ng-bind="client.Title"></span></td>
+                </tr>
+                <tr>
+                    <td>CONSUMER PRODUCTS</td>
+                    <td class="clientCell" ng-repeat="client in clients | filter:{Industry:'CONSUMER PRODUCTS'}"><span ng-bind="client.Title"></span></td>
+                </tr>
+
+                <tr>
+                    <td>HEALTHCARE</td>
+                    <td class="clientCell" ng-repeat="client in clients | filter:{Industry:'HEALTHCARE'}"><span ng-bind="client.Title"></span></td>
+                </tr>
+                <tr>
+                    <td>MEDICAL DEVICE</td>
+                    <td class="clientCell" ng-repeat="client in clients | filter:{Industry:'MEDICAL DEVICE'}"><span ng-bind="client.Title"></span></td>
+                </tr>
+
+                <tr>
+                    <td>PHARMA</td>
+                    <td class="clientCell" ng-repeat="client in clients | filter:{Industry:'PHARMA'}"><span ng-bind="client.Title"></span></td>
+                </tr>
+
+
+                <tr>
+                    <td>BIOTECH</td>
+                    <td class="clientCell" ng-repeat="client in clients | filter:{Industry:'BIOTECH'}"><span ng-bind="client.Title"></span></td>
+                </tr>
+
+
+
+
+                <!--**************************************************************************************************************-->
+
+
+
+
+            </table>
+            <!-- table below pulls full list**********************************************************
+		<hr />
+		<br />		
+		<table class="table table-condensed table-hover">
+			<tr>
+				<th>Industry</th>
+				<th>Company</th>
+				<th>Size</th>
+				<th>Spend</th>
+			</tr>
+			<tr data-ng-repeat="client in clients | orderBy:'Industry'">
+			<td>{{client.Industry | uppercase}}</td>
+			<td>{{client.Title | uppercase}}</td>
+			<td>{{client.Size | uppercase}}</td>
+			<td>{{client.Spend}}</td>
+			</tr>
+		</table>
+***************************************************************************************-->
+        </div>
+    </div>
+</body>
+
+</html>

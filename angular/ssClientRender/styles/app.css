@@ -1,0 +1,19 @@
+/***************************styleSheet angular App********************/
+
+td {
+    padding: 10px;
+    text-align: left;
+    width: 10%;
+}
+
+#tbl1 > tbody > tr:hover {
+    border: medium;
+    border-color: lime;
+}
+
+.clientCell {
+    background-color: green;
+    border-width: 5px;
+    border-color: #ffffff;
+    border-collapse: collapse;
+}

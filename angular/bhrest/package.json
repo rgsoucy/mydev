@@ -1,0 +1,14 @@
+{
+  "name": "bhrest",
+  "version": "0.0.0",
+  "description": "rest requests for bullhorn",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ryan Soucy",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "gulp": "~3.9.1"
+  }
+}

@@ -1,0 +1,74 @@
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+
+<!--<input type='button' id='id1' value='Get User Name' onclick="GetLoggedInUserName();"/>-->
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ExecuteOrDelayUntilScriptLoaded(GetLoggedInUserName, "sp.js");
+    });
+
+    function GetLoggedInUserName()
+
+    {
+
+        var context = new SP.ClientContext.get_current();
+
+        this.website = context.get_web();
+
+        this.currentUser = website.get_currentUser();
+
+        context.load(currentUser);
+
+        context.executeQueryAsync(Function.createDelegate(this, this.onQuerySucceeded), Function.createDelegate(this, this.onQueryFailed));
+
+    }
+
+
+
+    function onQuerySucceeded(sender, args)
+
+    {
+
+        var longName = currentUser.get_loginName().split("|");
+        var thisUser = longName[2];
+        if (thisUser == "ryan2@labur.com") {
+            alert('Manager View ' + thisUser + " " + longName);
+            $('#appendMgrName').append('<h2><b>Welcome Ryan!</b></h2><hr />');
+        } else if (thisUser == "darrin@labur.com") {
+            //alert('Manager View ' + thisUser + " " + longName);
+            $('#appendMgrName').append('<h2><b>Welcome Darrin!</b></h2><hr />');
+        } else if (thisUser == "seth@labur.com") {
+            $('#appendMgrName').append('<h2><b>Welcome Seth!</b></h2><hr />');
+            // alert('Manager View ' + thisUser + " " + longName);
+        } else if (thisUser == "ryan@labur.com") {
+            $('#appendMgrName').append('<h2><b>Welcome Ryan!</b></h2><hr />');
+            //alert('Manager View ' + thisUser + " " + longName);
+        } else if (thisUser == "dessa@labur.com") {
+            $('#appendMgrName').append('<h2><b>Welcome Dessa!</b></h2><hr />');
+            //alert('Manager View ' + thisUser + " " + longName);
+        } else {
+            alert('Not a Manager ' + thisUser + " " + longName);
+            $('#appendMgrName').append('<h2><b>Non-Manager</b></h2><hr />');
+            var mgrElements = document.getElementsByClassName("mgrOnly");
+            var i;
+            for (i = 0; i < mgrElements.length; i++) {
+                mgrElements[i].style.visibility = "hidden";
+            }
+        }
+
+
+    }
+
+
+
+    function onQueryFailed(sender, args)
+
+    {
+
+        alert('request failed ' + args.get_message() + '\n' + args.get_stackTrace());
+
+    }
+    GetLoggedInUserName();
+</script>

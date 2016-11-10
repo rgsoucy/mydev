@@ -1,0 +1,115 @@
+:q!	- quit
+i	- insert
+a	- append
+u	- undo last command
+U	- undo all changes to line
+ctrl+R	- undo the undo's
+o	- insert line below
+O	- insert line above
+y	- yank(copy) //operator i.e. yw yanks word
+
+
+SAVE:
+:w	- save
+:w test	- saves as new file named 'test'
+:wq	- save&quit
+v+:w tst- saves selection to new file named tst
+
+SELECTION:
+v	- Visual selection
+
+INSERT FILE CONTENTS
+:r	- Retrieve file contents
+:r test	- Inserts contents of file named 'test'
+:r !cmd - Inserts output of the command
+	// e.g. output of my !dir cmd below
+
+ 
+
+
+MOTION:
+e	- go to end of current word
+w 	- go to start of next word
+$ 	- go to end of line
+0 	- go to start of line
+
+DELETE:
+// syntax: d [#] motion
+d 	- delete 
+de	- delete to end of current word
+dw	- delete until start of next word
+d$	- delete to end of the line
+d2w	- deletes next two words
+
+MULTIPLES W/ #'S:
+//Using '2' for examples, can be any #
+
+MOTION:
+2w	- move two words forward
+2e	- move to end of second word forward
+
+
+LINES:
+dd	- delete whole line
+2dd	- delete two lines(#dd)
+
+PUT:
+//copy&paste alternative
+p	- insert previously deleted text after cursor
+	//if you 'dd' line, p will insert line below cursor
+
+REPLACE:
+r	- replace
+	// r[character]
+	// e.g. 'rx' replaces character at cursor with 'x'
+R	- replace multiple characters
+	//works like overtype
+
+CHANGE:
+ // syntaxt c  [#] motion
+c	- change
+	// works like 'd'; i.e. same as delete but puts cursor in insert mode 
+	// e.g. 'c$' deletes end of line and puts you in insert mode
+
+GOTO:
+CTRL+G	- show file location and status
+	//left gives file name, total # lines, % through doc
+	//right gives [line #],[text column]-[byte column]
+	// byte column is different because of things like tab
+g	- goto
+gg	- goto top
+G	- goto bottom
+2G	- goto line 2
+
+SEARCH:
+/	- search for string
+	// typing 'n' will cycle through 
+%	- finds matching parentheses
+	// works with (),[],{}
+	//use for debugging unmatched parentheses
+
+
+SUBSTITUTE:
+//syntax  e.g.  :s/old/new/g 
+	// subs 'new' for 'old'
+:s/old/new	- only subs first occurence
+:s/old/new/g	- subs all occurences in the line
+:#,#s/old/new/g	- subs all occurences btwn two specific lines
+:%s/old/new/g	- subs all occurences in file
+:%s/old/new/gc	- finds every occurence in file, prompts to substitute
+
+EXTERNAL COMMANDS:
+:!	-run external command
+	// e.g. :!dir<enter>
+
+SET OPTION:
+:set ic	- 'ignorecase'
+:set is	- 'incsearch' //show partial matches
+:set hls- 'hlsearch' //highlight matches
+:set noic - turns option off
+//etc.
+
+
+
+
+ 

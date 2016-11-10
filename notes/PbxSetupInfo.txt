@@ -1,0 +1,6 @@
+Setup--> PBX
+
+PBX Model: Allworx 24x
+Receive Data Using: I.P. As Client 
+PBX IP Address: 192.168.1.200
+Listen Port: 16366

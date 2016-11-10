@@ -1,0 +1,108 @@
+//single line comment
+#single line comment
+/*
+Muti line comment
+*/
+
+Save file as .php
+#	code can be entered anywhere on the page
+
+Tag:
+
+<?php
+#code goes here
+?>
+
+Variabes:
+#	Not case sensative
+#	'$' defines variable
+#	4 Data Types: Boolean, Integer, floating point, String
+
+CONCAT: '.' #like perl
+
+<?php
+$strOne="Hello";
+$strTwo=" World!";
+$myStr = $strOne . $strTwo;
+echo($myStr);
+?>
+
+Constants:
+#variables can be changed
+#constants should not be changed
+#naming convention is to be ALL CAPS
+<?php
+	define("TITLE", "This is my Title");
+?>
+
+<html>
+	<head>
+		<title><?php echo TITLE ?></title>	#writes variable into title
+	</head>
+<body></body>
+</html>
+
+Arrays:
+<html>
+<head></head>
+<body>
+
+<?php 
+$user = array(
+	"johndoe12",
+	"John Doe",
+	32
+	);
+echo("Username: " . $user[0] . "<br />");
+echo("Name: " . $user[1] . "<br />");
+echo("Age: " . $user[2] . "<br />");
+
+
+#Associative Array (AKA Dictionary):
+	#syntax is same as perl
+
+$people = array(
+	"username" => "johndoe12",
+	"fullName" => "John Doe",
+	"age" => 32
+	);
+
+echo("Username: " . $people["username"] . "<br />");
+echo("Name: " . $people["fullName"] . "<br />");
+echo("Age: " . $people["age"] . "<br />");
+
+
+#multiDimensional Array
+	#aka array of a bunch of users
+	#seems similar to an array of javascript objects
+
+$employees = array(
+
+		array(	#index is 0
+		"username" => "johndoe12",
+		"fullName" => "John Doe",
+		"age" => 32
+		);
+	
+		
+		array(	#index is 1
+		"username" => "janedoe12",
+		"fullName" => "Jane Doe",
+		"age" => 23
+		);	
+	);
+
+#calling info in multiDim array
+
+echo $employees[0]["fullName"]; //John Doe
+echo $employees[1]["fullName"]; //Jane Doe
+
+
+?>
+
+
+
+
+
+
+

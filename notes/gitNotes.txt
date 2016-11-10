@@ -1,0 +1,157 @@
+VCS	Version Control System
+		Work simultaneously
+		Doesn't allow overwriting each other's changes
+		Maintain a histoy of each version
+	Types:
+	CVCS	Centralized Version Control System
+	DVCS	Distributed Version Control System (GIT)
+
+Offline you can commit changes, create branches, view logs, etc..
+Only need to be online to publish changes and take the latest changes. 
+
+Advantages:
+
+Fast and small, runs locally
+
+Implicit Backup
+
+Security (SHA1)	
+
+No need for powerful hardware
+
+Easier Branching 
+
+Terms:
+
+Local Repository	Private working copy of repository
+
+Working Directory and Staging Area/Index
+	When you commit an operation, Git looks for the files present in the staging area. 
+ex. 
+#First commit
+bash~$ git add sort.c
+
+#adds file to staging area
+bash~$ git commit -m "Added sort Operation"
+
+#Second commit
+bash~$ git add search.c
+
+#adds file to the staging area
+bash~$ git commit -m  "Added search operation"
+
+
+BLOBS:
+Binary
+Large
+Objects
+
+Each version of a file is represented by a blob
+	holds file data but no metadata
+named as SHA1 hash of the file
+In get, files are not name-addressed, they are content-addressed
+
+TREES:
+Tree is an object whch represents a directory
+Hold blobs and other sub-directories
+Tree is a binary file that stores references to blobs and trees which are also named as SHA1 hash of tree object
+
+COMMITS:
+Commit holds current state of repository
+Also named by SHA1 hash 
+Consider as a node in a linked list
+has pointer to parent commit object to view history
+if commit has multiple parents, then it was a result of merging branches
+
+BRANCHES:
+Used to create another line of development
+GIT has a master branch (same as trunk in subversion)
+Usually used to work on a new feature. Once feature is complete, it is merged back into the master and branch is deleted
+every branch is referenced by HEAD - points to last commit in the branch
+
+
+TAGS:
+Assigns Meaningful name to specific version of repository
+Similar to branches but immutable AKA tag=branch that nobody intends to modify
+Usually used for product releases AKA when you're done
+
+CLONE:
+Creates instance of repository
+Mirrors complete repository
+Only time networking is invlved is when respository instnces need to be synchronized
+
+PULL:
+Copies changes from remote repository to local one [pull from onlne to local]
+
+PUSH:
+Opposite of pull
+copies changes from local repository to a remote one
+#Same as commit opperation in subversion
+
+HEAD:
+Pointer to last commit in branch
+#Stored in .git/refs/heads/ directory
+
+#ex. 
+#bash~$ ls -l .git/refs/heads/
+#
+#master
+#
+#bash~$ cat .git/refs/heads/master
+#570837e7d58fa4bccd86cb575d884502188b0c49
+
+REVISON:
+Represents the version of source code
+Revisions are respresented by commits
+identified by SHA1 secure hashes
+
+URL:
+Location of git repository
+Stored in config file
+
+#ex.
+#bash~$ cat .git/config
+[core]
+repositoryformatversion = 0
+filemode = true
+bare = false
+logallrefupdates = true
+[remote "origin"]
+url = gituser@git.server.com:project.git
+fetch = +refs/heads/*:refs/remotes/origin/*
+
+bash~$ 
+
+
+
+
+
+
+COMMANDS TO KNOW:
+
+git init			-Create new git repository
+
+git status			-inspects contents of working directory and staging area
+
+git add				-adds files from working directory to staging area
+
+git diff			-shows difference between working directory and staging area
+
+git commit			-permanently stores file changes from staging area in the repository
+
+git log				-shows list of all previous commits
+
+git branch			-lists branches
+
+git branch branch_name		-Creates Branch
+
+git checkout branch_name 	-switch to branch
+
+git merge branch_name		-join file changes from one branch to another
+
+git branch -d branch_name	-Deletes specified branch
+
+|rm -rf .git
+|git init
+|git add remote .....   complete remove git repo and keep files and restart remote connection
+

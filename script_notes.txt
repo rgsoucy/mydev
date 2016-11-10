@@ -1,0 +1,16 @@
+Scripts I've used in the past. 
+
+#Find file & suppress "Permission Denied" Error Outputs
+~$ sudo find / -name 'example.txt' 2>/dev/null
+
+#Find and inplace edit string within a file
+~$ perl -ie 's/replacecthis/withthis/g' example.txt
+
+#Find and replace txt bullets
+~$ perl -i.bak -pe '/s/\x95\t//g;' example.txt
+	# \x--	-- is hex character code
+	# \x95 is txt bullet char
+	# \t is tab char
+
+#Send cmd output to clipboard
+C:/> clip < example.txt
